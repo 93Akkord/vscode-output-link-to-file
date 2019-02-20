@@ -108,10 +108,9 @@ export class LinkProvider implements vscode.DocumentLinkProvider {
         while ((match = this.localLinkPattern.exec(line))) {
             let start = match.index;
             let end = match.index + match[0].length;
-
             let linkUrl = this.extractLinkUrl(match[0]);
+            let resolvedPath = (this.processCwd) ? await this.resolvePath(linkUrl) : linkUrl;
 
-            let resolvedPath = await this.resolvePath(linkUrl);
             linkUrl = path.normalize(resolvedPath);
 
             if (!(await this.fileExists(linkUrl))) {
