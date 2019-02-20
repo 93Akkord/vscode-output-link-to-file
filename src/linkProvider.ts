@@ -109,7 +109,7 @@ export class LinkProvider implements vscode.DocumentLinkProvider {
             let start = match.index;
             let end = match.index + match[0].length;
             let linkUrl = this.extractLinkUrl(match[0]);
-            let resolvedPath = (this.processCwd) ? await this.resolvePath(linkUrl) : linkUrl;
+            let resolvedPath = this.processCwd ? await this.resolvePath(linkUrl) : linkUrl;
 
             linkUrl = path.normalize(resolvedPath);
 
@@ -182,6 +182,8 @@ export class LinkProvider implements vscode.DocumentLinkProvider {
     }
 
     private preprocessPath(link: string): string | null {
+        // this.resolveWorkspaceFolders();
+
         if (process.platform === 'win32') {
             // Resolve ~ -> %HOMEDRIVE%\%HOMEPATH%
             if (link.charAt(0) === '~') {
@@ -216,10 +218,14 @@ export class LinkProvider implements vscode.DocumentLinkProvider {
     }
 
     private async resolvePath(link: string): Promise<string | null> {
-        const preprocessedLink = this.preprocessPath(link);
+        let preprocessedLink: string | null;
+
+        try {
+            preprocessedLink = this.preprocessPath(link);
+        } catch (error) {}
 
         if (!preprocessedLink) {
-            return null;
+            return link;
         }
 
         return preprocessedLink;
@@ -232,6 +238,16 @@ export class LinkProvider implements vscode.DocumentLinkProvider {
             return true;
         } catch (error) {
             return false;
+        }
+    }
+
+    private resolveWorkspaceFolders() {
+        let folders = vscode.workspace.workspaceFolders;
+
+        for (let i = 0; i < folders.length; i++) {
+            const folder = folders[i];
+
+            console.log(`${folder.name}:`, folder.uri.fsPath);
         }
     }
 }
