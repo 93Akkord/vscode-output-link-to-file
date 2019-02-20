@@ -1,0 +1,80 @@
+{
+    "name": "output-link-to-file",
+    "displayName": "Output Link to File",
+    "description": "Creates links to files in the output window.",
+    "version": "0.0.1",
+    "publisher": "93akkord",
+    "icon": "images/logo.png",
+    "engines": {
+        "vscode": "^1.17.0"
+    },
+    "categories": [
+        "Programming Languages",
+        "Other"
+    ],
+    "keywords": [
+        "javascript",
+        "php",
+        "python",
+        "perl",
+        "ruby",
+        "multi-root ready",
+        "output"
+    ],
+    "bugs": {
+        "url": "https://github.com/93akkord/",
+        "email": "93akkord@gmail.com"
+    },
+    "homepage": "https://github.com/93akkord/",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/93Akkord/vscode-output-link-to-file.git"
+    },
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./out/src/extension",
+    "contributes": {
+        "configuration": {
+            "type": "object",
+            "title": "Output Link to File configuration",
+            "properties": {
+                "output-link-to-file.languagesIds": {
+                    "type": "array",
+                    "default": [
+                        "output-link-to-file",
+                        "log",
+                        "Log",
+                        "code-runner-output"
+                    ],
+                    "description": "Set the languages ids to provide links for.",
+                    "scope": "resource"
+                }
+            }
+        },
+        "commands": [
+            {
+                "title": "Output Unknown Language Ids",
+                "command": "output-link-to-file.outputUnknownLanguageIds"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "tsc -p ./",
+        "package": "vsce package",
+        "compile": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "tslint": "tslint -t verbose src/**/*.ts"
+    },
+    "dependencies": {
+        "applicationinsights": "^0.19.0"
+    },
+    "devDependencies": {
+        "@types/mocha": "^2.2.32",
+        "@types/node": "^6.0.40",
+        "mocha": "^2.3.3",
+        "tslint": "^5.5.0",
+        "typescript": "^2.0.3",
+        "vscode": "^1.0.0"
+    }
+}
