@@ -23,7 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     vscode.window.onDidChangeActiveTextEditor((editor) => {
-        if (!languagesIds.includes(editor.document.languageId) && !nonOutputLanguageIds.includes(editor.document.languageId) && !unknownLanguageIds.includes(editor.document.languageId)) {
+        if (editor != null && !languagesIds.includes(editor.document.languageId) && !nonOutputLanguageIds.includes(editor.document.languageId) && !unknownLanguageIds.includes(editor.document.languageId)) {
             unknownLanguageIds.push(editor.document.languageId);
         }
     });
@@ -40,7 +40,7 @@ function registerCommands(context: vscode.ExtensionContext) {
         }
 
         console.log(lines.join('\n'));
-        
+
         vscode.window.showInformationMessage(lines.join('\n'));
     });
 

@@ -64,17 +64,28 @@
         "package": "vsce package",
         "compile": "tsc -watch -p ./",
         "postinstall": "node ./node_modules/vscode/bin/install",
-        "tslint": "tslint -t verbose src/**/*.ts"
+        "tslint": "tslint -t verbose src/**/*.ts",
+
+        "git-patch": "npm version patch && git add . && git commit -m $M && git push --all",
+
+        "pregit-minor": "npm version minor",
+        "git-minor": "git add . && git commit -m",
+        "postgit-minor": "git push --all",
+
+        "pregit-major": "npm version major",
+        "git-major": "git add . && git commit -m",
+        "postgit-major": "git push --all",
+
+        "publish": "vsce publish"
     },
-    "dependencies": {
-        "applicationinsights": "^0.19.0"
-    },
+    "dependencies": {},
     "devDependencies": {
-        "@types/mocha": "^2.2.32",
-        "@types/node": "^6.0.40",
-        "mocha": "^2.3.3",
+        "@types/mocha": "^5.2.6",
+        "@types/node": "^11.9.4",
+        "mocha": "^6.0.0",
         "tslint": "^5.5.0",
-        "typescript": "^2.0.3",
-        "vscode": "^1.0.0"
+        "typescript": "^3.3.3",
+        "typescript-tslint-plugin": "^0.3.1",
+        "vscode": "^1.1.30"
     }
 }
