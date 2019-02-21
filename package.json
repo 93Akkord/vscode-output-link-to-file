@@ -65,7 +65,7 @@
         "compile": "tsc -watch -p ./",
         "postinstall": "node ./node_modules/vscode/bin/install",
         "tslint": "tslint -t verbose src/**/*.ts",
-        "git-patch": "npm version patch && git add . && git commit -m $M && git push --all",
+        "git-patch": "git add . && git commit --allow-empty-message -m '' && npm version patch && git push --all",
         "pregit-minor": "npm version minor",
         "git-minor": "git add . && git commit -m",
         "postgit-minor": "git push --all",
