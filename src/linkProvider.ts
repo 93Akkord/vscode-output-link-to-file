@@ -8,14 +8,18 @@ const pathPrefix = '(\\.\\.?|\\~)';
 const pathSeparatorClause = '\\/';
 // '":; are allowed in paths but they are often separators so ignore them
 // Also disallow \\ to prevent a catastropic backtracking case #24798
-const excludedPathCharactersClause = '[^\\0\\s!$`&*()\\[\\]+\'":;\\\\]';
+// const excludedPathCharactersClause = '[^\\0\\s!$`&*()\\[\\]+\'":;\\\\]';
+const excludedPathCharactersClause = '[^\\0!$`&*()\\[\\]+\'":;\\\\]';
+
 /** A regex that matches paths in the form /foo, ~/foo, ./foo, ../foo, foo/bar */
 const unixLocalLinkClause = '((' + pathPrefix + '|(' + excludedPathCharactersClause + ')+)?(' + pathSeparatorClause + '(' + excludedPathCharactersClause + ')+)+)';
 
 const winDrivePrefix = '[a-zA-Z]:';
 const winPathPrefix = '(' + winDrivePrefix + '|\\.\\.?|\\~)';
 const winPathSeparatorClause = '(\\\\|\\/)';
-const winExcludedPathCharactersClause = '[^\\0<>\\?\\|\\/\\s!$`&*()\\[\\]+\'":;]';
+// const winExcludedPathCharactersClause = '[^\\0<>\\?\\|\\/\\s!$`&*()\\[\\]+\'":;]';
+const winExcludedPathCharactersClause = '[^\\0<>\\?\\|\\/!$`&*()\\[\\]+\'":;]';
+
 /** A regex that matches paths in the form c:\foo, ~\foo, .\foo, ..\foo, foo\bar */
 const winLocalLinkClause = '((' + winPathPrefix + '|(' + winExcludedPathCharactersClause + ')+)?(' + winPathSeparatorClause + '(' + winExcludedPathCharactersClause + ')+)+)';
 
@@ -117,6 +121,10 @@ export class LinkProvider implements vscode.DocumentLinkProvider {
                 break;
             }
 
+            if (!(await this.isFile(linkUrl))) {
+                break;
+            }
+
             let fileUri = vscode.Uri.file(linkUrl);
             let lineColumnInfo = this.extractLineColumnInfo(match[0]);
 
@@ -182,8 +190,6 @@ export class LinkProvider implements vscode.DocumentLinkProvider {
     }
 
     private preprocessPath(link: string): string | null {
-        // this.resolveWorkspaceFolders();
-
         if (process.platform === 'win32') {
             // Resolve ~ -> %HOMEDRIVE%\%HOMEPATH%
             if (link.charAt(0) === '~') {
@@ -236,6 +242,16 @@ export class LinkProvider implements vscode.DocumentLinkProvider {
             fs.accessSync(_path);
 
             return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    private async isFile(_path: string): Promise<boolean> {
+        try {
+            let stat = await fs.lstatSync(_path);
+
+            return stat.isFile();
         } catch (error) {
             return false;
         }
