@@ -8,7 +8,7 @@ let unknownLanguageIds: string[] = [];
 
 export function activate(context: vscode.ExtensionContext) {
     const linkProvider = new LinkProvider();
-    let languagesIds: string[] = vscode.workspace.getConfiguration('output-link-to-file').get('languagesIds');
+    let languagesIds: string[] = vscode.workspace.getConfiguration('output-link-to-file', null).get('languagesIds');
 
     registerCommands(context);
 
@@ -17,7 +17,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.workspace.onDidChangeConfiguration((e) => {
         outputLink.dispose();
 
-        languagesIds = vscode.workspace.getConfiguration('output-link-to-file').get('languagesIds');
+        languagesIds = vscode.workspace.getConfiguration('output-link-to-file', null).get('languagesIds');
 
         outputLink = vscode.languages.registerDocumentLinkProvider(languagesIds, linkProvider);
     });

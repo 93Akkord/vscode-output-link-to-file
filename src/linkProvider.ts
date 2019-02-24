@@ -72,7 +72,7 @@ export class LinkProvider implements vscode.DocumentLinkProvider {
 
     constructor() {
         this.configuration = {
-            eol: vscode.workspace.getConfiguration('files').get('eol'),
+            eol: vscode.workspace.getConfiguration('files', null).get('eol'),
         };
 
         const baseLocalLinkClause = process.platform === 'win32' ? winLocalLinkClause : unixLocalLinkClause;
@@ -85,7 +85,7 @@ export class LinkProvider implements vscode.DocumentLinkProvider {
     public async provideDocumentLinks(document: vscode.TextDocument, token: vscode.CancellationToken): Promise<vscode.DocumentLink[]> {
         let results: vscode.DocumentLink[] = [];
 
-        this.currentWorkspaceFolder = vscode.workspace.getWorkspaceFolder(vscode.window.activeTextEditor.document.uri);
+        this.currentWorkspaceFolder = vscode.window.activeTextEditor ? vscode.workspace.getWorkspaceFolder(vscode.window.activeTextEditor.document.uri) : null;
         this.processCwd = this.currentWorkspaceFolder ? this.currentWorkspaceFolder.uri.fsPath : null;
         let lines = document.getText().split(this.configuration.eol);
 
