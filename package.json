@@ -2,7 +2,7 @@
     "name": "output-link-to-file",
     "displayName": "Output Link to File",
     "description": "Creates links to files in the output window.",
-    "version": "0.0.14",
+    "version": "0.0.15",
     "publisher": "93akkord",
     "icon": "images/logo.png",
     "engines": {
@@ -63,8 +63,7 @@
         "package": "vsce package",
         "postinstall": "node ./node_modules/vscode/bin/install",
         "tslint": "tslint -t verbose src/**/*.ts",
-        "prepublish": "npm run compile-prod && grunt bump:patch && npm run package",
-        "publish": "vsce publish",
+        "publish": "npm run compile-prod && grunt bump:patch && npm run package && vsce publish",
         "compile-dev": "webpack --mode development --progress --display errors-only",
         "compile-prod": "webpack --mode production",
         "watch": "webpack --mode development --watch --progress"
