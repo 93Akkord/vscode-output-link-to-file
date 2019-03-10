@@ -6,3 +6,4 @@ node_modules
 tempCodeRunnerFile.*
 *.vsix
 _self
+*.stg

@@ -2,7 +2,7 @@
     "name": "output-link-to-file",
     "displayName": "Output Link to File",
     "description": "Creates links to files in the output window.",
-    "version": "0.0.11",
+    "version": "0.0.12",
     "publisher": "93akkord",
     "icon": "images/logo.png",
     "engines": {
@@ -61,24 +61,30 @@
     },
     "scripts": {
         "package": "vsce package",
-        "compile": "tsc -watch -p ./",
         "postinstall": "node ./node_modules/vscode/bin/install",
         "tslint": "tslint -t verbose src/**/*.ts",
-        "prepublish": "tsc -p ./ && grunt bump:patch && npm run package",
-        "publish": "vsce publish"
+        "prepublish": "npm run compile-prod && grunt bump:patch && npm run package",
+        "publish": "vsce publish",
+        "compile-dev": "webpack --mode development --progress --display errors-only",
+        "compile-prod": "webpack --mode production",
+        "watch": "webpack --mode development --watch --progress"
     },
     "dependencies": {},
     "devDependencies": {
         "@types/grunt": "^0.4.24",
         "@types/mocha": "^5.2.6",
         "@types/node": "^11.9.4",
+        "@types/webpack": "^4.4.25",
         "bump-file": "^2.0.0",
         "grunt": "^1.0.3",
         "grunt-bump": "^0.8.0",
         "mocha": "^6.0.0",
+        "ts-loader": "^5.3.3",
         "tslint": "^5.5.0",
         "typescript": "^3.3.3",
         "typescript-tslint-plugin": "^0.3.1",
-        "vscode": "^1.1.30"
+        "vscode": "^1.1.30",
+        "webpack": "^4.29.6",
+        "webpack-cli": "^3.2.3"
     }
 }

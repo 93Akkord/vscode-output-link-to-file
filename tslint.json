@@ -3,7 +3,6 @@
     "rules": {
         "no-empty": false,
         "object-literal-sort-keys": false,
-
         "prefer-const": false,
         "no-conditional-assignment": false,
         "callable-types": false,
@@ -16,8 +15,10 @@
         "no-angle-bracket-type-assertion": false,
         "ordered-imports": false,
         "whitespace": false,
-
         "trailing-comma": false,
         "no-unused-variable": false,
+        "quotemark": false,
+        "max-line-length": false,
+        "variable-name": false
     }
 }

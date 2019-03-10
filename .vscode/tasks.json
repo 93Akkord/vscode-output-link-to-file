@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "npm",
+            "label": "compile",
 
             "type": "shell",
 
@@ -14,7 +14,7 @@
                 "reveal": "silent",
             },
 
-            "args": ["run", "compile", "--loglevel", "silent"],
+            "args": ["run", "compile-dev", "--loglevel", "silent"],
 
             "isBackground": true,
 

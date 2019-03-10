@@ -1,10 +1,14 @@
 sudo: false
+
 language: node_js
+
 node_js:
   - "node"
+  
 os:
   - osx
   - linux
+  - windows
 
 before_install:
   - if [ $TRAVIS_OS_NAME == "linux" ]; then
@@ -15,8 +19,7 @@ before_install:
 
 install:
   - npm install
-  - npm run vscode:prepublish
+  - npm run compile-prod
 
 script:
   - npm run tslint
-  - npm test --silent

@@ -2,7 +2,9 @@
 {
     "files.exclude": {
         "out": true,
-        "tempCodeRunnerFile.*": true
+        "tempCodeRunnerFile.*": true,
+        "**/*.vsix": true,
+        "**/*.stg": true
     },
     "search.exclude": {
         "out": true,
