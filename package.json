@@ -2,7 +2,7 @@
     "name": "output-link-to-file",
     "displayName": "Output Link to File",
     "description": "Creates links to files in the output window.",
-    "version": "0.0.16",
+    "version": "0.0.17",
     "publisher": "93akkord",
     "icon": "images/logo.png",
     "engines": {
