@@ -77,7 +77,7 @@
         "bump-file": "^2.0.0",
         "grunt": "^1.0.4",
         "grunt-bump": "^0.8.0",
-        "mocha": "^6.2.0",
+        "mocha": "^10.2.0",
         "ts-loader": "^6.0.4",
         "tslint": "^5.20.0",
         "typescript": "^3.6.2",
